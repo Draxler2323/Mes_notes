@@ -1,0 +1,18 @@
+SQL=Structured Query Language
+Query:
+select
+INSERT
+UPDATE
+DELETE
+-----------------------------
+ID|Nom|Prenom|tel|
+-------------------
+1|Nathan|Bya|6765543
+--------------------
+2|AZED|Salumu|977635
+-------------------------
+add=(insert)=creer=record=enregistrer=ajouter
+
+syntax:
+insert into table(col1,col2,..)Values(val1,val2,..);
+
