@@ -1,0 +1,17 @@
+After some research I got the answer:-
+
+step 1: In Nox player Enable root access in Settings
+
+step 2: Go to settings, go to about tablet and tap build number for 8 times to enable developer options
+
+step 3: Go to developer options and enable "usb debugging"
+
+step 4: Open terminal and type adb connect 127.0.0.1:62001. type adb devices to make sure your emulator is connected.
+
+step 5: Go to your project, type react-native run-android --deviceId 127.0.0.1:62001, waiting for the project to finish compiling, and you will see a red error screen.
+
+step 6: Open the developer menu, Go to Dev Settings → Debug server host for device, Assume your local ip is 192.168.1.121, then type: 192.168.1.121:8081
+
+step 7: Use developer menu to reload your app, then close the app and reopen it.
+
+step 8 : After all this done open expo xde it run your app automatically

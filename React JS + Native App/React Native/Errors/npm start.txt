@@ -1,0 +1,18 @@
+13
+
+Start your server with
+
+npx expo start -c
+
+inside your terminal
+
+-c is short for --clear
+
+
+
+
+npx expo start --offline
+
+npx expo start --localhost
+
+npx expo start -c   --localhost

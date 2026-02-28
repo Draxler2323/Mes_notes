@@ -1,0 +1,88 @@
+Running Expo in development offline
+Asked 7 years ago
+Modified 4 months ago
+Viewed 11k times
+7
+
+I looked over the docs, but cannot find a way to run Expo completely offline. I'm frequently in an area without a stable connection and this makes it exceptionally difficult to maintain a proper work flow.
+
+I would have thought that exp start --dev --lan would enable offline development, but my expo client still fails on inability to connect to the expo servers.
+
+Is there a truly offline mode for expo?
+
+react-nativeexpo
+Share
+Improve this question
+Follow
+asked May 19, 2018 at 9:02
+user6536559
+No, Internet is required the bundled files are downloaded from the expo web server. – 
+Rajendran Nadar
+ CommentedMay 19, 2018 at 9:18
+Add a comment
+4 Answers
+Sorted by:
+
+Highest score (default)
+7
+
+In order to load the bundle
+
+expo start --offline
+will work. For running it on an Android device make sure to check if your device is listed in adb available devices by running
+
+adb devices
+You can make the connection with your adb device either by connecting it through wire or attaching the bridge wirelessly. Instructions for help!
+
+Share
+Improve this answer
+Follow
+edited May 16, 2021 at 10:01
+answered Jan 14, 2021 at 7:39
+Safeer's user avatar
+Safeer
+1,46711 gold badge2626 silver badges3232 bronze badges
+If it's offline why does it still says failed to connect to to 192.168.xx.xx – 
+ahmed
+ CommentedJan 6 at 14:49
+Add a comment
+6
+
+With the latest version of Expo (v32) you can run offline by using the following command
+
+expo start --offline
+Share
+Improve this answer
+Follow
+answered Mar 20, 2019 at 10:40
+lifeofmle's user avatar
+lifeofmle
+36033 silver badges1111 bronze badges
+4
+Is it possible to run the app when your phone is offline? It doesn't work for me with just the offline-flag. – 
+Kikkomann
+ CommentedMar 25, 2019 at 17:31
+This command just ignores CLI network calls. These api calls are used for signing manifests. – 
+SMhd Asadi
+ CommentedAug 31, 2024 at 6:10
+Add a comment
+0
+
+If you experience issues when testing offline try starting the Expo packager with the command yarn start --offline command and then in Expo dev tools set the connection type to "local".
+Or you can also use expo start --offline.
+Share
+Improve this answer
+Follow
+answered Aug 31, 2021 at 16:40
+Aahad's user avatar
+Aahad
+57755 silver badges1313 bronze badges
+I've started using expo start --offline as suggested but in iOS simulator the connection stays on, not really offline – 
+Butri
+ CommentedSep 21, 2021 at 16:02
+Add a comment
+0
+
+--offline tag will not work, it will still try to connect to metro server and if your device is not connected to same Wifi it will fail. To run Expo app completely offline (with your phone's wifi off), you need to do the following, Connect your device via USB to your computer. For Android setup ADB and confirm device is connected, (do the same equivalent for iOS). Once the device is connected
+
+Start the expo on localhost using npx expo start --localhost and then select your device and now it should work completely offline

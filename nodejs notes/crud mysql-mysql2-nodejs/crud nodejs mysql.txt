@@ -1,0 +1,316 @@
+Node js CRUD Operation with MySQL | A Complete Guide
+by Shahalamol R | Published on June 28, 2024 | Updated on July 3, 2024
+
+Download Blog as PDF
+There are several steps involved in creating a Node js CRUD Operation with MySQL. At Bobcares, we assist our customers with several MySQL queries on a daily basis as part of our MySQL Support.
+
+
+Overview
+Creating a Node.js Express MySQL CRUD App: Introduction
+Prerequisites for Creating a Node.js Express MySQL CRUD App
+Steps to Create a Node.js Express MySQL CRUD App
+1. Creating a CRUD Express.js App
+2. Setting a MySQL Database, Table, and Connection for Node.js CRUD
+3. Run the Express.js App
+4. Deploy the Node.js and MySQL App
+Creating a Node.js Express MySQL CRUD App: Introduction
+It is a group of four basic functions commonly used while working with databases, particularly relational databases like MySQL. Let’s look into the details:
+
+CREATE: Adding new data is a crucial action in CRUD. Typically, the INSERT query in SQL is used for this.
+
+READ: Another important operation is retrieving data from a database. The SELECT statement in SQL is widely used to accomplish this objective.
+
+node js crud operation with mysql
+
+UPDATE: Updating existing data in the database is critical to keeping data updated. The UPDATE statement in SQL is commonly used for this operation.
+
+DELETE: Removing data from the database is an important part of data management. In SQL, the DELETE statement is the typical way to do this action.
+
+Subscribe to our newsletter for the latest updates, news, and features.
+Enter your email address
+Let's Go!
+Prerequisites for Creating a Node.js Express MySQL CRUD App
+To start working with Express.js for CRUD tasks in MySQL, we need to first set up the basic needs on our system as follows:
+
+1. Get and set up the latest secure version of Node.js for the OS.
+
+2. To find out whether Node.js is properly set up, open a CLI and enter the command node -v. This shows the Node.js version that already exists on the machine.
+
+3. npm (Node Package Manager) is Node.js’ package manager, allowing users to quickly install and manage packages and dependencies. To confirm npm setup, enter the command npm -v in a CLI. This program will display the npm version that is currently setup on the computer.
+
+We must follow these steps to set up Node.js and npm correctly, so we can perform CRUD in MySQL with Express.js.
+
+Steps to Create a Node.js Express MySQL CRUD App
+1. Creating a CRUD Express.js App
+1. Create a Directory
+
+mkdir my-express-app
+cd my-express-app
+2. Initialize Node.js Project
+
+npm init
+3. Install Packages
+
+npm install express body-parser mysql
+4. Create the Server: Create index.js and set up the server:
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
+const app = express();
+const port = 5000;
+
+
+
+
+app.use(bodyParser.json());
+
+
+
+
+const pool = mysql.createPool({
+connectionLimit: 10,
+host: 'localhost',
+user: 'root1',
+password: 'pass_word',
+database: 'new_database'
+});
+
+
+
+
+app.listen(port, () => {
+console.log(`Server is listening on port ${port}`);
+});
+5. Add Route Handlers
+
+Create (INSERT):
+
+app.post('/users', (req, res) => {
+const { name, emailaddress } = req.body;
+pool.query('INSERT INTO users (name, emailaddress) VALUES (?, ?)', [name, emailaddress], (error, results) => {
+if (error) {
+console.error(error);
+res.status(500).send('Error creating user');
+} else {
+res.status(200).send('User created successfully');
+}
+});
+});
+Read (SELECT):
+
+app.get('/users', (req, res) => {
+pool.query('SELECT * FROM users', (error, results) => {
+if (error) {
+console.error(error);
+res.status(500).send('Error retrieving users');
+} else {
+res.status(200).json(results);
+}
+});
+});
+
+Update (UPDATE):
+
+app.put('/users/:id', (req, res) => {
+const id = req.params.id;
+const { name, emailaddress } = req.body;
+pool.query('UPDATE users SET name = ?, emailaddress = ? WHERE id = ?', [name, emailaddress, id], (error, results) => {
+if (error) {
+console.error(error);
+res.status(500).send('Error updating user');
+} else {
+res.status(200).send('User updated successfully');
+}
+});
+});
+Delete (DELETE):
+
+app.delete('/users/:id', (req, res) => {
+const id = req.params.id;
+pool.query('DELETE FROM users WHERE id = ?', [id], (error, results) => {
+if (error) {
+console.error(error);
+res.status(500).send('Error deleting user');
+} else {
+res.status(200).send('User deleted successfully');
+}
+});
+});
+6. Start the Server
+
+node index.js
+2. Setting a MySQL Database, Table, and Connection for Node.js CRUD
+To create a MySQL database, table, and establish a connection to it for a Node.js CRUD application, follow these steps:
+
+1. Install Required Packages
+
+Install the MySQL package using npm:
+
+npm install mysql
+2. Create the MYSQL Database and Table
+
+Create a new MySQL database:
+
+CREATE DATABASE db;
+Use the database:
+USE db;
+Then, create a table:
+
+CREATE TABLE new_table (
+id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+age INT NOT NULL,
+PRIMARY KEY (id)
+);
+3. Establish a Connection to MYSQL in Node.js
+
+Import the MySQL package in the Node.js file:
+
+const mysql = require('mysql');
+Create a connection object:
+
+const connection = mysql.createConnection({
+host: 'localhost',
+user: 'coder',
+password: 'pass_word',
+database: 'db'
+});
+Connect to the database:
+
+connection.connect((err) => {
+if (err) {
+console.error('Error connecting to MySQL: ', err);
+return;
+}
+console.log('Connected to MySQL');
+});
+Export the connection object:
+
+module.exports = connection;
+4. Use the Connection for CRUD Operations
+
+Fetch all records from the table:
+
+const connection = require('./connection');
+connection.query('SELECT * FROM new_table', (err, results) => {
+if (err) {
+console.error('Error retrieving records: ', err);
+return;
+}
+console.log('Retrieved records: ', results);
+});
+5. Create CRUD Routes with Express.js
+
+Install the required packages:
+
+npm install express mysql
+Create a server.js file:
+const express = require('express');
+const mysql = require('mysql');
+const app = express();
+// Create a MySQL connection
+const connection = mysql.createConnection({
+host: 'localhost',
+user: 'coder',
+password: 'pass_word',
+database: 'db'
+});
+connection.connect((err) => {
+if (err) {
+console.error('Error connecting to MySQL: ', err);
+return;
+}
+console.log('Connected to MySQL');
+});
+// Retrieve all records
+app.get('/records', (req, res) => {
+connection.query('SELECT * FROM new_table', (err, results) => {
+if (err) {
+console.error('Error retrieving records: ', err);
+res.status(500).send('Error retrieving records');
+return;
+}
+res.send(results);
+});
+});
+// Retrieve a specific record
+app.get('/records/:id', (req, res) => {
+const id = req.params.id;
+connection.query('SELECT * FROM new_table WHERE id = ?', id, (err, results) => {
+if (err) {
+console.error('Error retrieving record: ', err);
+res.status(500).send('Error retrieving record');
+return;
+}
+res.send(results[0]);
+});
+});
+// Create a new record
+app.post('/records', (req, res) => {
+const { name, age } = req.body;
+connection.query('INSERT INTO new_table SET ?', { name, age }, (err, result) => {
+if (err) {
+console.error('Error creating record: ', err);
+res.status(500).send('Error creating record');
+return;
+}
+res.send(result);
+});
+});
+// Update an existing record
+app.put('/records/:id', (req, res) => {
+const id = req.params.id;
+const { name, age } = req.body;
+connection.query('UPDATE new_table SET name = ?, age = ? WHERE id = ?', [name, age, id], (err, result) => {
+if (err) {
+console.error('Error updating record: ', err);
+res.status(500).send('Error updating record');
+return;
+}
+res.send(result);
+});
+});
+// Delete a record
+app.delete('/records/:id', (req, res) => {
+const id = req.params.id;
+connection.query('DELETE FROM new_table WHERE id = ?', id, (err, result) => {
+if (err) {
+console.error('Error deleting record: ', err);
+res.status(500).send('Error deleting record');
+return;
+}
+res.send(result);
+});
+});
+// Start the server
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+This setup help us to perform CRUD operations on the new_table table using the Express.js and MySQL.
+
+3. Run the Express.js App
+1. Save the code in a file named server.js.
+
+2. Start the server using:
+
+node server.js
+3. Open the web browser and go to:
+
+http://localhost:5000/
+4. Deploy the Node.js and MySQL App
+1. Select a hosting provider like AWS, Heroku, or Google Cloud Platform.
+
+2. Create and configure a server instance based on the provider.
+
+3. Upload the code to the server via FTP or deploy using Git.
+
+4. Run npm install to install dependencies.
+
+5. Configure any necessary environment variables.
+
+6. Run node server.js or use a process manager like PM2 to start the server.
+
+[Want to learn more? Click here to reach us.]
+
+Conclusion
+MySQL is used by major companies for managing large datasets, and CRUD operations are essential for database management. Node.js and npm are required for using Express.js with MySQL. Deployment steps may vary based on the chosen platform.

@@ -1,0 +1,11 @@
+To kickstart your React Native development, install Expo CLI globally on your computer by running the following command in your terminal:
+1 npm install -g expo-cli. //npm install -g npm@11.3.0
+2 expo --version.
+3 expo init my-first-react-native-project.
+4 npx expo start.
+
+///////////////////////////////////////////
+npm install -g npm@11.3.0
+
+////////////////////////////
+npx expo install react-dom react-native-web @expo/metro-runtime

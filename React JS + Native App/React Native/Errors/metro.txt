@@ -1,0 +1,20 @@
+ExpoMetroConfig.loadAsync is not a function when i run "npx expo start"
+--------------------------------------------------------------------
+Try this:
+
+npm install @expo/config@8.1.1
+npm install @expo/metro-config@0.10.0
+
+---------------Run------------------------
+expo start --localhost --android
+--------------------------------------------------------
+
+or
+Try manually starting your adb server before starting Expo.
+
+$ adb start-server
+
+Sounds obvious, but make sure USB debugging is enabled. However, on the very first run, your phone will ask to allow access from your computer. Set this to always allow access from your computer.
+
+Open the Expo app (update if possible). On running the command $ expo start --localhost --android, you should see your app launch on your device.
+
